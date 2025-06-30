@@ -1,56 +1,33 @@
-# PredictYourFood
+# Модели и их использование
 
 ## Доступные модели
 
-### YOLOv11n (nano, оптимизированная)
-- **Размер:** ~2.6 млн параметров
-- **Скорость инференса:** ~67-91 мс/изображение (на CPU)
-- **mAP50-95:** до 0.95 (после оптимизации)
-- **Веса:** `runs/detect/yolov11n_opt2/weights/best.pt`
-- **Лучше всего подходит:** для быстрого инференса и ограниченных ресурсов
+- **train5** — самая свежая модель (оптимизированный датасет, много эпох)
+  - Веса: `runs/detect/train5/weights/best.pt`, `last.pt`, а также веса по эпохам (`epoch10.pt`, ...)
+- **train3** — предыдущая версия (другой конфиг/датасет)
+  - Веса: `runs/detect/train3/weights/best.pt`, `last.pt`, веса по эпохам
 
-### YOLOv11s (small)
-- **Размер:** ~9.4 млн параметров
-- **Скорость инференса:** ~183 мс/изображение (на CPU)
-- **mAP50-95:** до 0.957
-- **Веса:** `runs/detect/yolov11s/weights/best.pt`
-- **Лучше всего подходит:** для максимального качества, если скорость не критична
+## Как использовать модели
 
-## Быстрый старт
-
-1. **Выбор модели:**
-   - Для быстрого старта и теста — YOLOv11n (nano, оптимизированная)
-   - Для максимального качества — YOLOv11s
-
-2. **Обучение (пример для YOLOv11n, оптимизированная версия):**
+### 1. Инференс (детекция на изображениях/видео)
 
 ```bash
-yolo train model=yolo11n.pt data=data.yaml epochs=70 imgsz=640 name=yolov11n_opt2 lr0=0.004 batch=16 optimizer=Adam lrf=0.05 scale=0.5 translate=0.12 hsv_h=0.018 hsv_s=0.7
+yolo predict model=runs/detect/train5/weights/best.pt source=path/to/image_or_video
 ```
+- Можно заменить путь к модели на любую из доступных (например, train3)
+- Для видео и папок с изображениями — просто указывай нужный source
 
-3. **Валидация на тестовой выборке:**
+### 2. Дообучение (fine-tune)
 
 ```bash
-yolo val model=runs/detect/yolov11n_opt2/weights/best.pt data=data.yaml split=test
+yolo train model=runs/detect/train5/weights/best.pt data=path/to/data.yaml cfg=path/to/config.yaml
 ```
+- Можно дообучать с любого веса (best.pt, last.pt, epoch*.pt)
+- Указывай свой конфиг и датасет
 
-4. **Предикт на новых изображениях:**
+### 3. Графики и метрики
 
-```bash
-yolo predict model=runs/detect/yolov11n_opt2/weights/best.pt source=dataset/images/test
-```
+- Все графики (loss, precision, recall, confusion matrix и др.) лежат в `runs/detect/train*/` и `runs/detect/val*/`
+- Открывай PNG/JPG для анализа качества
 
-5. **Обучение YOLOv11s:**
-
-```bash
-yolo train model=yolo11s.pt data=data.yaml epochs=50 imgsz=640 name=yolov11s
-```
-
-## Структура проекта
-- `dataset/images/{train,val,test}` — изображения
-- `dataset/labels/{train,val,test}` — разметка в формате YOLO
-- `runs/detect/` — результаты обучения и веса моделей
-- `data.yaml` — описание датасета для YOLO
-
-## Автор
-Ларкин Григорий
+---

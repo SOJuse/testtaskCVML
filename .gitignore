@@ -1,111 +1,20 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-.env
-.venv
-env/
 venv/
-ENV/
-env.bak/
-venv.bak/
-venv310/
+/*
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+!*.py
+!*.pt
+!*.yaml
+!README.md
 
-# OS
+!runs/
+!runs/**
+
+runs/detect/predict*/
+
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+dataset/
+dataset_balance/
+test/
+job_2620809_annotations_2025_06_28_19_08_41_yolo 1.1/
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# PyTorch
-*.pth
-
-# Temporary files
-*.tmp
-*.temp
-temp/
-tmp/
-
-# Logs
-*.log
-logs/
-
-# Large data files - exclude actual images and labels
-dataset/images/train/*
-dataset/images/val/*
-dataset/images/test/*
-dataset/labels/train/*
-dataset/labels/val/*
-dataset/labels/test/*
-
-# Keep .keep files
-!dataset/images/train/.keep
-!dataset/images/val/.keep
-!dataset/images/test/.keep
-!dataset/labels/train/.keep
-!dataset/labels/val/.keep
-!dataset/labels/test/.keep
-
-# YOLO runs - exclude intermediate files but keep important results
-runs/detect/*/weights/last.pt
-runs/detect/*/weights/epoch*.pt
-
-# Keep best.pt models and important results
-!runs/detect/yolov11n_opt2/weights/best.pt
-!runs/detect/yolov11s_run/weights/best.pt
-
-# Keep important metrics and visualizations from report.md
-!runs/detect/yolov11n_opt2/results.png
-!runs/detect/yolov11n_opt2/train_batch0.jpg
-!runs/val/yolov11n_opt2_test_metrics/PR_curve.png
-!runs/val/yolov11n_opt2_test_metrics/F1_curve.png
-!runs/val/yolov11n_opt2_test_metrics/P_curve.png
-!runs/val/yolov11n_opt2_test_metrics/R_curve.png
-!runs/val/yolov11n_opt2_test_metrics/confusion_matrix.png
-!runs/val/yolov11n_opt2_test_metrics/val_batch0_pred.jpg
-
-# Keep metrics for other models
-!runs/val/yolov11s_test_metrics/PR_curve.png
-!runs/val/yolov11s_test_metrics/F1_curve.png
-!runs/val/yolov11s_test_metrics/confusion_matrix.png
-!runs/val/yolov11n_test_metrics/PR_curve.png
-!runs/val/yolov11n_test_metrics/F1_curve.png
-!runs/val/yolov11n_test_metrics/confusion_matrix.png
-
-# Keep some prediction examples (limit to first few)
-runs/predict/*/frame_*.jpg
-!runs/predict/yolov11n_test/frame_00001.jpg
-!runs/predict/yolov11s_test/frame_00001.jpg 
+!.gitignore
